@@ -15,46 +15,23 @@ import org.testng.annotations.Test;
 
 import com.testvagrant.Base.BaseClass;
 import com.testvagrant.utils.Constants;
+import com.testvagrant.utils.DeserializeJsonUtility;
+
 
 public class TestClass extends BaseClass {
 
-	List<String> nonIndianPlayersList = new ArrayList<String>();
-	List<String> WickKeepersList = new ArrayList<String>();
-	Iterator itr;
 	@Test
 	public void testForeignPlayersAreNotMoreThanFour()
 	{
-		itr = playersList.iterator();
-		
-		while(itr.hasNext())
-		{
-			JSONObject player = (JSONObject) itr.next();
-			String country = (String)player.get(Constants.Country);
-			if(!(country.equals(Constants.India)))
-			{nonIndianPlayersList.add(country);
-				}
-		}
-		boolean result = nonIndianPlayersList.size()<=4;
+		int count= jsonutility.getForeignPlayersCount();
+		boolean result = count <=4; 
 		Assert.assertTrue(result, "Sorry! Only 4 Foreign Players are allowed in the Team");
-		
 	}
 	@Test
 	public void TestAtleastOneWicketKeeperPresent()
 	{
-		itr = playersList.iterator();
-		
-		while(itr.hasNext())
-		{
-			JSONObject player = (JSONObject) itr.next();
-			String Role = (String)player.get(Constants.Role);
-			if(Role.equals(Constants.WicketKeeper))
-			{WickKeepersList.add(Role);
-			}
-		}
-		
-		boolean result = WickKeepersList.size()>=1;
-		
-		Assert.assertTrue(result, "Sorry! There should be atleast one wicket-keeper present in the team");
-		
+		int count= jsonutility.getWicketKeepersCount();
+		boolean result = count>=1;
+		Assert.assertTrue(result,"Sorry! There should be atleast one wicket-keeper present in the team");
 	}
 }
