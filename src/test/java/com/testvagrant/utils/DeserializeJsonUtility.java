@@ -10,14 +10,19 @@ import org.json.simple.JSONArray;
 import com.fasterxml.jackson.core.exc.StreamReadException;
 import com.fasterxml.jackson.databind.DatabindException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
+/**
+ * This Class is to read the json file into Pojo class 
+ * All utility methods according to the testcases
+ * @author kiruthika
+ *
+ */
 public class DeserializeJsonUtility {
 
 	
 	protected JSONArray playersList;
 	TeamsModel teamsModel;
 	
-	public void deserializeJson(String filepath)
+	public TeamsModel deserializeJson(String filepath)
 	{
 		ObjectMapper mapper = new ObjectMapper();
 		
@@ -33,11 +38,11 @@ public class DeserializeJsonUtility {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			System.out.println(teamsModel.getPlayer().get(0).getCountry());
+			return teamsModel;
 		
 	}
 	
-	public int getForeignPlayersCount(TeamsModel teams)
+	public int getForeignPlayersCount()
 	{
 		List<PlayersModel> players = new ArrayList<PlayersModel>(teamsModel.getPlayer());
 		int count =0;
@@ -51,7 +56,7 @@ public class DeserializeJsonUtility {
 		return count;
 	}
 	
-	public int getWicketKeepersCount(TeamsModel teams)
+	public int getWicketKeepersCount()
 	{
 		List<PlayersModel> players = new ArrayList<PlayersModel>(teamsModel.getPlayer());
 		int count =0;
